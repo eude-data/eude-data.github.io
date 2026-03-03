@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Eude Géro Dekadjevi — Finance Quantitative & Data Science</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&family=Fira+Code:wght@300;400&display=swap" rel="stylesheet"/>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+:root {
+  --night: #0b0f1a;
+  --night2: #111827;
+  --night3: #1a2235;
+  --gold: #c9a84c;
+  --gold2: #e8c97a;
+  --gold-light: rgba(201,168,76,0.12);
+  --cream: #f4f0e8;
+  --cream2: #ede8dc;
+  --text: #f4f0e8;
+  --muted: #6b7a99;
+  --border: rgba(201,168,76,0.15);
+  --border2: rgba(244,240,232,0.08);
+}
+
+body {
+  background: var(--night);
+  color: var(--text);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* CURSOR */
+#cur {
+  width: 8px; height: 8px;
+  background: var(--gold);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.2s, background 0.3s;
+}
+#cur-ring {
+  width: 32px; height: 32px;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.4;
+  transition: transform 0.4s cubic-bezier(0.23,1,0.32,1);
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 1.4rem 3rem;
+  display: flex; justify-content: space-between; align-items: center;
+  background: rgba(11,15,26,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+}
+
+.nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+.nav-links a {
+  font-size: 0.72rem; font-weight: 400;
+  text-transform: uppercase; letter-spacing: 0.14em;
+  text-decoration: none; color: var(--muted);
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--gold); }
+.nav-cta {
+  border: 1px solid var(--gold) !important;
+  color: var(--gold) !important;
+  padding: 0.4rem 1.1rem;
+  border-radius: 2px;
+  transition: background 0.2s !important;
+}
+.nav-cta:hover { background: var(--gold-light) !important; }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  padding-top: 70px;
+  border-bottom: 1px solid var(--border);
+}
+
+.hero-left {
+  padding: 6rem 3rem 4rem;
+  display: flex; flex-direction: column; justify-content: center;
+  border-right: 1px solid var(--border);
+  position: relative;
+}
+
+/* Gold line decoration */
+.hero-left::before {
+  content: '';
+  position: absolute;
+  top: 6rem; left: 3rem;
+  width: 40px; height: 1px;
+  background: var(--gold);
+}
+
+.hero-right {
+  display: flex; flex-direction: column;
+  background: var(--night2);
+  padding: 0;
+}
+
+.hero-right-top {
+  flex: 1;
+  padding: 4rem 2.5rem;
+  border-bottom: 1px solid var(--border);
+  display: flex; flex-direction: column; justify-content: center;
+}
+
+.hero-right-bottom {
+  padding: 2.5rem;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+}
+
+.stat-box {
+  background: var(--night2);
+  padding: 1.5rem;
+  transition: background 0.2s;
+}
+.stat-box:hover { background: var(--night3); }
+
+.stat-val {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.8rem;
+  font-weight: 300;
+  color: var(--gold);
+  line-height: 1;
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.stat-label {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.6rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.badge {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.65rem;
+  color: var(--gold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+.badge::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--gold);
+  border-radius: 50%;
+  animation: blink 2s infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3.5rem, 6vw, 5.5rem);
+  font-weight: 300;
+  line-height: 1.05;
+  color: var(--cream);
+  margin-bottom: 1.8rem;
+  letter-spacing: -0.01em;
+}
+
+h1 em {
+  font-style: italic;
+  color: var(--gold);
+  font-weight: 300;
+}
+
+.hero-desc {
+  font-size: 0.9rem;
+  color: var(--muted);
+  max-width: 480px;
+  line-height: 1.85;
+  margin-bottom: 2.5rem;
+}
+
+.hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.7rem 1.6rem;
+  font-size: 0.72rem; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  text-decoration: none; border-radius: 2px;
+  font-family: 'Outfit', sans-serif;
+  transition: all 0.2s;
+}
+.btn-gold { background: var(--gold); color: var(--night); }
+.btn-gold:hover { background: var(--gold2); transform: translateY(-2px); }
+.btn-ghost { border: 1px solid var(--border2); color: var(--muted); }
+.btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+.profile-block { }
+
+.profile-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--cream);
+  margin-bottom: 0.5rem;
+}
+
+.profile-title {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.65rem;
+  color: var(--gold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+.profile-tags {
+  display: flex; flex-direction: column; gap: 0.6rem;
+}
+
+.ptag {
+  display: flex; align-items: center; gap: 0.8rem;
+  font-size: 0.78rem; color: var(--muted);
+}
+
+.ptag::before {
+  content: '—';
+  color: var(--gold);
+  font-size: 0.6rem;
+}
+
+/* DIVIDER */
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 0;
+}
+
+/* SECTIONS */
+.section {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 6rem 3rem;
+}
+
+.section-label {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.62rem;
+  color: var(--gold);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+  display: flex; align-items: center; gap: 1rem;
+}
+.section-label::after {
+  content: '';
+  height: 1px;
+  width: 50px;
+  background: var(--gold);
+  opacity: 0.4;
+}
+
+h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.8rem;
+  font-weight: 300;
+  color: var(--cream);
+  margin-bottom: 3rem;
+  letter-spacing: -0.01em;
+}
+
+h2 em { font-style: italic; color: var(--gold); }
+
+/* PROJECTS */
+.projects-list {
+  display: flex; flex-direction: column;
+  border: 1px solid var(--border);
+}
+
+.proj {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  gap: 2rem;
+  padding: 2.2rem 2rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--night2);
+  transition: background 0.25s, padding-left 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+.proj:last-child { border-bottom: none; }
+
+.proj::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 2px;
+  background: var(--gold);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.35s ease;
+}
+
+.proj:hover { background: var(--night3); padding-left: 2.5rem; }
+.proj:hover::before { transform: scaleY(1); }
+
+.proj-num {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.65rem;
+  color: var(--muted);
+  padding-top: 0.3rem;
+  letter-spacing: 0.05em;
+}
+
+.proj-badges {
+  display: flex; flex-wrap: wrap; gap: 0.5rem;
+  margin-bottom: 0.7rem;
+}
+
+.pbadge {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.6rem;
+  border-radius: 2px;
+}
+.pb-gold { background: var(--gold-light); color: var(--gold); border: 1px solid rgba(201,168,76,0.25); }
+.pb-blue { background: rgba(99,102,241,0.1); color: #818cf8; border: 1px solid rgba(99,102,241,0.2); }
+.pb-green { background: rgba(16,185,129,0.08); color: #34d399; border: 1px solid rgba(16,185,129,0.15); }
+.pb-wip { background: rgba(107,114,153,0.1); color: var(--muted); border: 1px solid var(--border2); }
+
+.proj-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--cream);
+  margin-bottom: 0.6rem;
+  letter-spacing: 0.01em;
+}
+
+.proj-desc {
+  font-size: 0.83rem;
+  color: var(--muted);
+  line-height: 1.75;
+  margin-bottom: 1rem;
+  max-width: 580px;
+}
+
+.proj-highlights {
+  display: flex; flex-wrap: wrap; gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.phl {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.62rem;
+  color: var(--muted);
+  background: rgba(255,255,255,0.03);
+  padding: 0.2rem 0.6rem;
+  border-radius: 2px;
+  border: 1px solid var(--border2);
+}
+.phl::before { content: '→ '; color: var(--gold); }
+
+.proj-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+.stag {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.58rem;
+  color: rgba(107,114,153,0.7);
+  border: 1px solid rgba(107,114,153,0.15);
+  padding: 0.15rem 0.5rem;
+  border-radius: 2px;
+}
+
+.proj-link {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.62rem;
+  color: var(--gold);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+  padding-top: 0.3rem;
+  opacity: 0.7;
+  transition: opacity 0.2s, gap 0.2s;
+}
+.proj-link:hover { opacity: 1; gap: 0.7rem; }
+
+/* SKILLS */
+.skills-bg {
+  background: var(--night2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+
+.sk-panel {
+  background: var(--night2);
+  padding: 2rem 1.8rem;
+}
+
+.sk-title {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.6rem;
+  color: var(--gold);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 1.2rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.sk-items { display: flex; flex-direction: column; gap: 0.5rem; }
+
+.sk-item {
+  font-size: 0.82rem;
+  color: var(--muted);
+  display: flex; align-items: center; gap: 0.6rem;
+  transition: color 0.2s;
+}
+.sk-item:hover { color: var(--cream); }
+.sk-item::before {
+  content: '';
+  width: 4px; height: 4px;
+  background: var(--gold);
+  border-radius: 50%;
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+
+/* PARCOURS */
+.parcours-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: start;
+}
+
+.about-p {
+  font-size: 0.92rem;
+  color: var(--muted);
+  line-height: 1.9;
+  margin-bottom: 1.2rem;
+}
+.about-p strong { color: var(--cream); font-weight: 500; }
+.about-p em { color: var(--gold); font-style: italic; }
+
+.timeline { display: flex; flex-direction: column; }
+
+.tl {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 1.5rem;
+  padding: 1.8rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.tl:first-child { border-top: 1px solid var(--border); }
+
+.tl-date {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.6rem;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  padding-top: 0.3rem;
+  line-height: 1.6;
+}
+
+.tl-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  font-weight: 400;
+  color: var(--cream);
+  margin-bottom: 0.25rem;
+}
+
+.tl-org {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.6rem;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.tl-desc {
+  font-size: 0.8rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* CONTACT */
+.contact-wrap {
+  background: var(--night2);
+  border: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  overflow: hidden;
+}
+
+.contact-left {
+  padding: 3.5rem;
+  border-right: 1px solid var(--border);
+}
+
+.contact-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.5rem;
+  font-weight: 300;
+  line-height: 1.15;
+  color: var(--cream);
+  margin-bottom: 1.2rem;
+}
+.contact-title em { font-style: italic; color: var(--gold); }
+
+.contact-sub {
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.contact-right { padding: 3.5rem; display: flex; flex-direction: column; gap: 1rem; }
+
+.clink {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 1rem 1.2rem;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  text-decoration: none;
+  color: var(--text);
+  transition: border-color 0.2s, background 0.2s;
+  background: rgba(255,255,255,0.01);
+}
+.clink:hover { border-color: var(--gold); background: var(--gold-light); }
+
+.clink-icon {
+  width: 34px; height: 34px;
+  background: var(--night3);
+  border-radius: 2px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.7rem;
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
+.clink-label {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.57rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.1rem;
+}
+
+.clink-val { font-size: 0.82rem; color: var(--cream); }
+
+/* FOOTER */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 1.5rem 3rem;
+  display: flex; justify-content: space-between; align-items: center;
+  background: var(--night);
+}
+
+.footer-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  color: var(--gold);
+  letter-spacing: 0.08em;
+}
+
+.footer-t {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.58rem;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+}
+
+/* ANIMATIONS */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-left > * {
+  opacity: 0;
+  animation: fadeUp 0.7s ease forwards;
+}
+.badge        { animation-delay: 0.1s; }
+h1            { animation-delay: 0.25s; }
+.hero-desc    { animation-delay: 0.4s; }
+.hero-cta     { animation-delay: 0.55s; }
+.hero-right   { opacity: 0; animation: fadeUp 0.7s 0.3s ease forwards; }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero-right { border-top: 1px solid var(--border); }
+  .hero-right-bottom { grid-template-columns: repeat(4,1fr); }
+  .parcours-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .skills-grid { grid-template-columns: repeat(2,1fr); }
+  .contact-wrap { grid-template-columns: 1fr; }
+  .contact-left { border-right: none; border-bottom: 1px solid var(--border); }
+  .proj { grid-template-columns: 40px 1fr; }
+  .proj-link { display: none; }
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  .section { padding: 4rem 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">E.G. Dekadjevi</div>
+  <ul class="nav-links">
+    <li><a href="#projets">Projets</a></li>
+    <li><a href="#competences">Compétences</a></li>
+    <li><a href="#parcours">Parcours</a></li>
+    <li><a href="#contact" class="nav-cta">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="badge">Disponible · Stage Finance & Data Science · 2026</div>
+    <h1>Finance<br/><em>Quantitative</em><br/>& Data Science</h1>
+    <p class="hero-desc">
+      Étudiant en M2 ISIFAR à l'Université Paris Cité, spécialisé en modélisation stochastique,
+      machine learning et finance des marchés. Enseignant en mathématiques, passionné par
+      les données et les modèles qui expliquent le monde.
+    </p>
+    <div class="hero-cta">
+      <a href="#projets" class="btn btn-gold">Voir mes projets →</a>
+      <a href="https://github.com/eude-data" class="btn btn-ghost">GitHub ↗</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-right-top">
+      <div class="profile-block">
+        <div class="profile-name">Eude Géro Dekadjevi</div>
+        <div class="profile-title">M2 ISIFAR · Université Paris Cité</div>
+        <div class="profile-tags">
+          <div class="ptag">Modélisation stochastique & taux d'intérêt</div>
+          <div class="ptag">Machine Learning & statistiques</div>
+          <div class="ptag">Deep Learning génératif</div>
+          <div class="ptag">Gestion de portefeuille & optimisation d'actifs</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-right-bottom">
+      <div class="stat-box">
+        <span class="stat-val">0.727</span>
+        <span class="stat-label">AUC-ROC<br/>Random Forest</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-val">4</span>
+        <span class="stat-label">Projets<br/>quantitatifs</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-val">M2</span>
+        <span class="stat-label">ISIFAR<br/>Paris Cité</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-val">12</span>
+        <span class="stat-label">Mois<br/>d'expérience</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROJETS -->
+<section id="projets">
+  <div class="section">
+    <div class="section-label">01 — Travaux</div>
+    <h2>Projets <em>sélectionnés</em></h2>
+
+    <div class="projects-list">
+
+      <div class="proj">
+        <div class="proj-num">01</div>
+        <div>
+          <div class="proj-badges">
+            <span class="pbadge pb-gold">Gestion d'actifs</span>
+            <span class="pbadge pb-gold">Stratégie CTA</span>
+          </div>
+          <div class="proj-title">Gestion d'actifs & Data Mining — S&P 500</div>
+          <p class="proj-desc">Stratégie CTA sur les 15 plus grandes actions du S&P 500 (2024-2026). Calcul de moyennes mobiles pour générer des signaux d'achat/vente, simulation de portefeuille, puis réduction dimensionnelle via PCA pour construire des facteurs de risque et comparer les performances. Graphe de corrélations et Minimum Spanning Tree pour identifier les clusters d'actions.</p>
+          <div class="proj-highlights">
+            <span class="phl">Stratégie CTA — croisement cours / moyenne mobile</span>
+            <span class="phl">PCA — 3 composantes, 56% variance expliquée</span>
+            <span class="phl">Graphe de corrélations & Minimum Spanning Tree</span>
+            <span class="phl">Rendement CTA-PCA > CTA actions individuelles</span>
+          </div>
+          <div class="proj-stack">
+            <span class="stag">Python</span><span class="stag">pandas</span><span class="stag">scikit-learn</span><span class="stag">networkx</span><span class="stag">PCA</span><span class="stag">NumPy</span>
+          </div>
+        </div>
+        <a href="https://github.com/eude-data/gestion-actifs-sp500" class="proj-link">GitHub →</a>
+      </div>
+
+      <div class="proj">
+        <div class="proj-num">02</div>
+        <div>
+          <div class="proj-badges">
+            <span class="pbadge pb-green">Machine Learning</span>
+            <span class="pbadge pb-green">Classification</span>
+          </div>
+          <div class="proj-title">Gravité des accidents de la route en Île-de-France</div>
+          <p class="proj-desc">Analyse de plus de 15 000 accidents corporels en Île-de-France (données BAAC 2024). ACM pour la sélection de variables, puis comparaison de trois modèles : LDA, Random Forest et régression logistique pour prédire la gravité binaire (grave vs non grave). La régression logistique s'avère la plus performante (AUC 0.74), révélant que vitesse, manœuvres, luminosité et âge sont les facteurs clés.</p>
+          <div class="proj-highlights">
+            <span class="phl">AUC Random Forest : 0.72 · LDA : 0.74</span>
+            <span class="phl">15 000+ accidents · données data.gouv.fr</span>
+            <span class="phl">ACM · LDA · Random Forest · Régression logistique</span>
+            <span class="phl">Variable cible binaire : grave vs non grave</span>
+          </div>
+          <div class="proj-stack">
+            <span class="stag">R</span><span class="stag">ggplot2</span><span class="stag">FactoMineR</span><span class="stag">randomForest</span><span class="stag">MASS</span><span class="stag">pROC</span>
+          </div>
+        </div>
+        <a href="https://github.com/eude-data/accidents-route-idf" class="proj-link">GitHub →</a>
+      </div>
+
+      <div class="proj">
+        <div class="proj-num">03</div>
+        <div>
+          <div class="proj-badges">
+            <span class="pbadge pb-gold">Taux d'intérêt</span>
+            <span class="pbadge pb-gold">EDS</span>
+          </div>
+          <div class="proj-title">Modèles SABR–LIBOR · Mercurio & Morini (2009)</div>
+          <p class="proj-desc">Implémentation et analyse de la jonction entre le modèle SABR et le LIBOR Market Model suivant Mercurio & Morini (2009). Calibration des paramètres, dynamique des taux forward et pricing d'options de taux. Cadres HJM et Ho-Lee inclus.</p>
+          <div class="proj-highlights">
+            <span class="phl">Calibration SABR</span>
+            <span class="phl">Dynamique des taux forward</span>
+            <span class="phl">Pricing options de taux</span>
+            <span class="phl">HJM · Ho-Lee</span>
+          </div>
+          <div class="proj-stack">
+            <span class="stag">Python</span><span class="stag">LaTeX</span><span class="stag">EDS</span><span class="stag">Calibration</span>
+          </div>
+        </div>
+        <a href="#" class="proj-link">Bientôt →</a>
+      </div>
+
+      <div class="proj">
+        <div class="proj-num">04</div>
+        <div>
+          <div class="proj-badges">
+            <span class="pbadge pb-blue">Deep Learning</span>
+            <span class="pbadge pb-blue">Génératif</span>
+            <span class="pbadge pb-wip">En cours</span>
+          </div>
+          <div class="proj-title">WGAN vs Score-Based Models — Données financières synthétiques</div>
+          <p class="proj-desc">Comparaison de deux approches génératives (WGAN et SGM) sur des distributions de rendements financiers synthétiques. Datasets conçus pour exposer les limites de chaque modèle : mode collapse pour les GANs, précision fine pour les SGMs.</p>
+          <div class="proj-highlights">
+            <span class="phl">WGAN — Arjovsky et al. (2017)</span>
+            <span class="phl">SGM — Song et al. (2020)</span>
+            <span class="phl">Distributions financières synthétiques</span>
+          </div>
+          <div class="proj-stack">
+            <span class="stag">Python</span><span class="stag">PyTorch</span><span class="stag">WGAN</span><span class="stag">Score-Based Models</span>
+          </div>
+        </div>
+        <a href="#" class="proj-link">Bientôt →</a>
+      </div>
+
+      <div class="proj">
+        <div class="proj-num">05</div>
+        <div>
+          <div class="proj-badges">
+            <span class="pbadge pb-gold">Factor Investing</span>
+            <span class="pbadge pb-gold">Optimisation</span>
+            <span class="pbadge pb-wip">En cours</span>
+          </div>
+          <div class="proj-title">QRT Data Challenge — Prédiction de rendements actions</div>
+          <p class="proj-desc">Prédiction cross-sectionnelle des rendements boursiers via décomposition en base orthonormée pour la construction de facteurs décorrélés, combinée à une optimisation de portefeuille par simulation Monte Carlo.</p>
+          <div class="proj-highlights">
+            <span class="phl">Décomposition QR — facteurs orthonormés</span>
+            <span class="phl">Optimisation Monte Carlo sous contraintes</span>
+            <span class="phl">Backtesting cross-sectionnel</span>
+          </div>
+          <div class="proj-stack">
+            <span class="stag">Python</span><span class="stag">NumPy</span><span class="stag">SciPy</span><span class="stag">pandas</span><span class="stag">Monte Carlo</span>
+          </div>
+        </div>
+        <a href="#" class="proj-link">Bientôt →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- COMPETENCES -->
+<div class="skills-bg">
+  <div class="section" id="competences">
+    <div class="section-label">02 — Outils</div>
+    <h2>Compétences <em>techniques</em></h2>
+    <div class="skills-grid">
+      <div class="sk-panel">
+        <div class="sk-title">Langages</div>
+        <div class="sk-items">
+          <div class="sk-item">Python</div>
+          <div class="sk-item">R</div>
+          <div class="sk-item">SQL</div>
+          <div class="sk-item">LaTeX</div>
+        </div>
+      </div>
+      <div class="sk-panel">
+        <div class="sk-title">Finance quantitative</div>
+        <div class="sk-items">
+          <div class="sk-item">SABR · LIBOR Market Model</div>
+          <div class="sk-item">Heath-Jarrow-Morton</div>
+          <div class="sk-item">Ho-Lee</div>
+          <div class="sk-item">Pricing obligations & options</div>
+          <div class="sk-item">EDS · Processus stochastiques</div>
+        </div>
+      </div>
+      <div class="sk-panel">
+        <div class="sk-title">ML & Statistiques</div>
+        <div class="sk-items">
+          <div class="sk-item">Random Forest · scikit-learn</div>
+          <div class="sk-item">Deep Learning · PyTorch</div>
+          <div class="sk-item">ARIMA · VAR · VECM</div>
+          <div class="sk-item">Monte Carlo</div>
+          <div class="sk-item">SMOTE · Imbalanced learning</div>
+        </div>
+      </div>
+      <div class="sk-panel">
+        <div class="sk-title">Outils</div>
+        <div class="sk-items">
+          <div class="sk-item">pandas · NumPy · SciPy</div>
+          <div class="sk-item">Manim (animations)</div>
+          <div class="sk-item">Git · GitHub</div>
+          <div class="sk-item">Jupyter · VS Code</div>
+          <div class="sk-item">matplotlib · seaborn</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PARCOURS -->
+<section id="parcours">
+  <div class="section">
+    <div class="section-label">03 — Expérience</div>
+    <h2>Mon <em>parcours</em></h2>
+    <div class="parcours-grid">
+      <div>
+        <p class="about-p">
+          Passionné par l'intersection entre <strong>mathématiques appliquées</strong> et <strong>données financières</strong>,
+          je construis des compétences solides en modélisation stochastique, apprentissage statistique
+          et deep learning dans le cadre de mon <em>M2 ISIFAR</em> à l'Université Paris Cité.
+        </p>
+        <p class="about-p">
+          Mes projets couvrent la <strong>finance quantitative</strong> (modèles SABR-LIBOR, taux d'intérêt),
+          la <strong>gestion de portefeuille</strong> (optimisation d'actifs, frontière efficiente),
+          le <strong>machine learning</strong> (Random Forest, deep learning génératif) et
+          l'<em>analyse statistique appliquée</em>.
+        </p>
+        <p class="about-p">
+          Fort de <strong>12 mois d'expérience</strong> en analyse statistique appliquée
+          (séries temporelles, modèles ARIMA, VAR, VECM), je recherche un stage
+          pour mettre en pratique mes compétences quantitatives dans un environnement
+          professionnel exigeant.
+        </p>
+      </div>
+      <div class="timeline">
+        <div class="tl">
+          <div class="tl-date">2025<br/>— Présent</div>
+          <div>
+            <div class="tl-title">M2 ISIFAR</div>
+            <div class="tl-org">Université Paris Cité</div>
+            <div class="tl-desc">Statistiques, informatique, finance, assurance et risque. Spécialisation en modélisation stochastique et méthodes quantitatives.</div>
+          </div>
+        </div>
+        <div class="tl">
+          <div class="tl-date">2025<br/>— Présent</div>
+          <div>
+            <div class="tl-title">Gestion de portefeuille & optimisation d'actifs</div>
+            <div class="tl-org">Projet Python</div>
+            <div class="tl-desc">Modélisation et optimisation de portefeuilles financiers en Python — allocation d'actifs, frontière efficiente, mesures de risque.</div>
+          </div>
+        </div>
+        <div class="tl">
+          <div class="tl-date">2024<br/>— 2025</div>
+          <div>
+            <div class="tl-title">M1 Mathématiques & Applications</div>
+            <div class="tl-org">Université Paris Cité</div>
+            <div class="tl-desc">Probabilités avancées, analyse fonctionnelle, mathématiques financières.</div>
+          </div>
+        </div>
+        <div class="tl">
+          <div class="tl-date">Antérieur</div>
+          <div>
+            <div class="tl-title">Stages — Analyse statistique · 12 mois</div>
+            <div class="tl-org">Industrial Solution · Direction Générale de l'Économie</div>
+            <div class="tl-desc">Séries temporelles (ARIMA, VAR, VECM) sur données économiques et industrielles.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section">
+    <div class="section-label">04 — Contact</div>
+    <h2>Travaillons <em>ensemble</em></h2>
+    <div class="contact-wrap">
+      <div class="contact-left">
+        <div class="contact-title">À la recherche<br/>d'un <em>stage</em><br/>en France</div>
+        <p class="contact-sub">
+          Disponible à partir de juillet 2026. Intéressé par les postes en finance quantitative,
+          gestion des risques, data science et modélisation financière — Paris et région parisienne.
+        </p>
+      </div>
+      <div class="contact-right">
+        <a href="https://github.com/eude-data" class="clink">
+          <div class="clink-icon">gh</div>
+          <div>
+            <span class="clink-label">GitHub</span>
+            <span class="clink-val">github.com/eude-data</span>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/eude-gero-dekadjevi-56924722a" class="clink">
+          <div class="clink-icon">in</div>
+          <div>
+            <span class="clink-label">LinkedIn</span>
+            <span class="clink-val">Eude Géro Dekadjevi</span>
+          </div>
+        </a>
+        <a href="/cdn-cgi/l/email-protection#c0a5b5a4a5a7a5b2afa4a5aba1a4aaa5b6a980a7ada1a9aceea3afad" class="clink">
+          <div class="clink-icon">@</div>
+          <div>
+            <span class="clink-label">Email</span>
+            <span class="clink-val"><span class="__cf_email__" data-cfemail="afcadacbcac8caddc0cbcac4cecbc5cad9c6efc8c2cec6c381ccc0c2">[email&#160;protected]</span></span>
+          </div>
+        </a>
+        <a href="https://github.com/eude-data" class="clink">
+          <div class="clink-icon">gh</div>
+          <div>
+            <span class="clink-label">GitHub — Projets & code</span>
+            <span class="clink-val">github.com/eude-data</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">E.G. Dekadjevi</div>
+  <div class="footer-t">Finance Quantitative & Data Science · Paris, France · 2026</div>
+  <div class="footer-t">github.com/eude-data</div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// Cursor
+const cur = document.getElementById('cur');
+const ring = document.getElementById('cur-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+
+(function loop() {
+  rx += (mx - rx) * 0.15;
+  ry += (my - ry) * 0.15;
+  cur.style.left  = mx - 4 + 'px';
+  cur.style.top   = my - 4 + 'px';
+  ring.style.left = rx - 16 + 'px';
+  ring.style.top  = ry - 16 + 'px';
+  requestAnimationFrame(loop);
+})();
+
+document.querySelectorAll('a, .proj, .stat-box, .sk-item').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cur.style.transform = 'scale(2.5)';
+    ring.
