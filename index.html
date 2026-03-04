@@ -977,11 +977,11 @@ h1            { animation-delay: 0.25s; }
             <span class="clink-val">Eude Géro Dekadjevi</span>
           </div>
         </a>
-        <a href="mailto:eudegerodekadjevi@gmail.com" class="clink">
+        <a href="/cdn-cgi/l/email-protection#1e7b6b7a7b797b6c717a7b757f7a747b68775e79737f7772307d7173" class="clink">
           <div class="clink-icon">@</div>
           <div>
             <span class="clink-label">Email</span>
-            <span class="clink-val">eudegerodekadjevi@gmail.com</span>
+            <span class="clink-val"><span class="__cf_email__" data-cfemail="17726273727072657873727c76737d72617e57707a767e7b3974787a">[email&#160;protected]</span></span>
           </div>
         </a>
         <a href="https://github.com/eude-data" class="clink">
@@ -1003,7 +1003,7 @@ h1            { animation-delay: 0.25s; }
   <div class="footer-t">github.com/eude-data</div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 // Cursor
 const cur = document.getElementById('cur');
 const ring = document.getElementById('cur-ring');
@@ -1016,4 +1016,23 @@ document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; })
   ry += (my - ry) * 0.15;
   cur.style.left  = mx - 4 + 'px';
   cur.style.top   = my - 4 + 'px';
-  ring.style.left =
+  ring.style.left = rx - 16 + 'px';
+  ring.style.top  = ry - 16 + 'px';
+  requestAnimationFrame(loop);
+})();
+
+document.querySelectorAll('a, .proj, .stat-box, .sk-item').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cur.style.transform = 'scale(2.5)';
+    ring.style.transform = 'scale(1.5)';
+    ring.style.opacity = '0.7';
+  });
+  el.addEventListener('mouseleave', () => {
+    cur.style.transform = 'scale(1)';
+    ring.style.transform = 'scale(1)';
+    ring.style.opacity = '0.4';
+  });
+});
+</script>
+</body>
+</html>
