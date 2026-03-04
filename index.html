@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Eude Géro Dekadjevi - Finance Quantitative & Data Science</title>
+<title>Eude Géro Dekadjevi — Finance Quantitative & Data Science</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&family=Fira+Code:wght@300;400&display=swap" rel="stylesheet"/>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -629,7 +629,10 @@ h1            { animation-delay: 0.25s; }
 
 /* RESPONSIVE */
 @media (max-width: 900px) {
+  body { overflow-x: hidden; }
   .hero { grid-template-columns: 1fr; }
+  .hero-left { padding: 5rem 1.5rem 3rem; overflow: hidden; }
+  .hero-left::before { left: 1.5rem; }
   .hero-right { border-top: 1px solid var(--border); }
   .hero-right-bottom { grid-template-columns: repeat(4,1fr); }
   .parcours-grid { grid-template-columns: 1fr; gap: 3rem; }
@@ -637,10 +640,12 @@ h1            { animation-delay: 0.25s; }
   .contact-wrap { grid-template-columns: 1fr; }
   .contact-left { border-right: none; border-bottom: 1px solid var(--border); }
   .proj { grid-template-columns: 40px 1fr; }
-  .proj-link { display: none; }
+  .proj-link { display: inline-flex; margin-top: 0.8rem; }
   nav { padding: 1rem 1.5rem; }
   .nav-links { display: none; }
   .section { padding: 4rem 1.5rem; }
+  h1 { font-size: clamp(2rem, 9vw, 3.2rem); }
+  .hero-desc { font-size: 0.85rem; }
 }
 </style>
 </head>
@@ -953,8 +958,8 @@ h1            { animation-delay: 0.25s; }
       <div class="contact-left">
         <div class="contact-title">À la recherche<br/>d'un <em>stage</em><br/>en France</div>
         <p class="contact-sub">
-          Disponible à partir d'Avril (Flexible) 2026. Intéressé par les postes en finance quantitative,
-          gestion des risques, data science et modélisation financière - Paris et région parisienne.
+          Disponible à partir d'Avril 2026 (Flexible). Intéressé par les postes en finance quantitative,
+          gestion des risques, data science et modélisation financière — Paris et région parisienne.
         </p>
       </div>
       <div class="contact-right">
