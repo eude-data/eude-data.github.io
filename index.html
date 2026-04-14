@@ -688,18 +688,18 @@ h1            { animation-delay: 0.25s; }
         <div class="profile-tags">
           <div class="ptag">Modélisation stochastique & taux d'intérêt</div>
           <div class="ptag">Machine Learning & statistiques</div>
-          <div class="ptag">Deep Learning génératif</div>
+          <div class="ptag">Pricing d'options & volatilité</div>
           <div class="ptag">Gestion de portefeuille & optimisation d'actifs</div>
         </div>
       </div>
     </div>
     <div class="hero-right-bottom">
       <div class="stat-box">
-        <span class="stat-val">0.727</span>
+        <span class="stat-val">0.74</span>
         <span class="stat-label">AUC-ROC<br/>Random Forest</span>
       </div>
       <div class="stat-box">
-        <span class="stat-val">3</span>
+        <span class="stat-val">6</span>
         <span class="stat-label">Projets<br/>quantitatifs</span>
       </div>
       <div class="stat-box">
@@ -722,6 +722,7 @@ h1            { animation-delay: 0.25s; }
 
     <div class="projects-list">
 
+      <!-- PROJET 1 -->
       <div class="proj">
         <div class="proj-num">01</div>
         <div>
@@ -744,6 +745,7 @@ h1            { animation-delay: 0.25s; }
         <a href="https://github.com/eude-data/gestion-actifs-sp500" class="proj-link">GitHub →</a>
       </div>
 
+      <!-- PROJET 2 -->
       <div class="proj">
         <div class="proj-num">02</div>
         <div>
@@ -766,6 +768,7 @@ h1            { animation-delay: 0.25s; }
         <a href="https://github.com/eude-data/accidents-route-idf" class="proj-link">GitHub →</a>
       </div>
 
+      <!-- PROJET 3 -->
       <div class="proj">
         <div class="proj-num">03</div>
         <div>
@@ -786,6 +789,75 @@ h1            { animation-delay: 0.25s; }
           </div>
         </div>
         <a href="https://github.com/eude-data/Challenges-QRT" class="proj-link">Github →</a>
+      </div>
+
+      <!-- PROJET 4 — NOUVEAU -->
+      <div class="proj">
+        <div class="proj-num">04</div>
+        <div>
+          <div class="proj-badges">
+            <span class="pbadge pb-gold">Finance Quantitative</span>
+            <span class="pbadge pb-gold">Pricing</span>
+          </div>
+          <div class="proj-title">Black-Scholes Pricing Engine</div>
+          <p class="proj-desc">Moteur de pricing d'options vanilles et exotiques implémenté from scratch. Calcul analytique des grecques (Δ, Γ, Vega), pricing Monte Carlo avec estimation du delta par calcul de Malliavin, et formule fermée pour les options asiatiques à moyenne géométrique.</p>
+          <div class="proj-highlights">
+            <span class="phl">Grecques analytiques — Δ, Γ, Vega</span>
+            <span class="phl">Options asiatiques — formule fermée & Monte Carlo</span>
+            <span class="phl">Delta de Malliavin vs différences finies</span>
+            <span class="phl">Approximation ATM — 0.4 · S · σ · √τ</span>
+          </div>
+          <div class="proj-stack">
+            <span class="stag">Python</span><span class="stag">NumPy</span><span class="stag">SciPy</span><span class="stag">Monte Carlo</span>
+          </div>
+        </div>
+        <a href="https://github.com/eude-data/bs-pricing-engine" class="proj-link">GitHub →</a>
+      </div>
+
+      <!-- PROJET 5 — NOUVEAU -->
+      <div class="proj">
+        <div class="proj-num">05</div>
+        <div>
+          <div class="proj-badges">
+            <span class="pbadge pb-blue">Volatilité stochastique</span>
+            <span class="pbadge pb-blue">Modélisation</span>
+          </div>
+          <div class="proj-title">Volatilité Implicite & Modèle de Heston</div>
+          <p class="proj-desc">Extraction de la volatilité implicite par inversion numérique de Black-Scholes (Newton-Raphson et bissection), puis simulation du smile de volatilité via le modèle de Heston à variance stochastique. Reproduction du skew asymétrique induit par la corrélation négative spot/vol.</p>
+          <div class="proj-highlights">
+            <span class="phl">Vol implicite — Newton-Raphson & bissection</span>
+            <span class="phl">Heston MC — schéma d'Euler-Maruyama couplé</span>
+            <span class="phl">Smile de vol — skew négatif pour ρ = −0.5</span>
+            <span class="phl">Comparaison Black-Scholes vs Heston</span>
+          </div>
+          <div class="proj-stack">
+            <span class="stag">Python</span><span class="stag">NumPy</span><span class="stag">SciPy</span><span class="stag">matplotlib</span>
+          </div>
+        </div>
+        <a href="https://github.com/eude-data/implied-vol-heston" class="proj-link">GitHub →</a>
+      </div>
+
+      <!-- PROJET 6 — NOUVEAU -->
+      <div class="proj">
+        <div class="proj-num">06</div>
+        <div>
+          <div class="proj-badges">
+            <span class="pbadge pb-green">Monte Carlo</span>
+            <span class="pbadge pb-green">Méthodes numériques</span>
+          </div>
+          <div class="proj-title">Monte Carlo — Réduction de Variance</div>
+          <p class="proj-desc">Implémentation et comparaison de techniques avancées de réduction de variance appliquées au pricing d'options : variables antithétiques, importance sampling par changement de mesure (Girsanov), et simulation de trajectoires pour options barrières.</p>
+          <div class="proj-highlights">
+            <span class="phl">Variables antithétiques — réduction significative sur call ATM</span>
+            <span class="phl">Importance Sampling — call OTM avec 10⁴ vs 10⁷ simulations</span>
+            <span class="phl">Put Down-and-In — simulation de trajectoires complètes</span>
+            <span class="phl">Théorème de Girsanov — rapport de Radon-Nikodym</span>
+          </div>
+          <div class="proj-stack">
+            <span class="stag">Python</span><span class="stag">NumPy</span><span class="stag">SciPy</span><span class="stag">matplotlib</span>
+          </div>
+        </div>
+        <a href="https://github.com/eude-data/montecarlo-variance-reduction" class="proj-link">GitHub →</a>
       </div>
 
     </div>
@@ -810,9 +882,9 @@ h1            { animation-delay: 0.25s; }
       <div class="sk-panel">
         <div class="sk-title">Finance quantitative</div>
         <div class="sk-items">
-          <div class="sk-item">SABR · LIBOR Market Model</div>
+          <div class="sk-item">Black-Scholes · Heston</div>
           <div class="sk-item">Heath-Jarrow-Morton</div>
-          <div class="sk-item">Ho-Lee</div>
+          <div class="sk-item">Ho-Lee · Vasicek</div>
           <div class="sk-item">Pricing obligations & options</div>
           <div class="sk-item">EDS · Processus stochastiques</div>
         </div>
@@ -823,7 +895,7 @@ h1            { animation-delay: 0.25s; }
           <div class="sk-item">Random Forest · scikit-learn</div>
           <div class="sk-item">Deep Learning · PyTorch</div>
           <div class="sk-item">ARIMA · VAR · VECM</div>
-          <div class="sk-item">Monte Carlo</div>
+          <div class="sk-item">Monte Carlo · Réduction de variance</div>
           <div class="sk-item">SMOTE · Imbalanced learning</div>
         </div>
       </div>
@@ -854,7 +926,7 @@ h1            { animation-delay: 0.25s; }
           et deep learning dans le cadre de mon <em>M2 ISIFAR</em> à l'Université Paris Cité.
         </p>
         <p class="about-p">
-          Mes projets couvrent la <strong>finance quantitative</strong> (modèles SABR-LIBOR, taux d'intérêt),
+          Mes projets couvrent la <strong>finance quantitative</strong> (Black-Scholes, Heston, modèles de taux),
           la <strong>gestion de portefeuille</strong> (optimisation d'actifs, frontière efficiente),
           le <strong>machine learning</strong> (Random Forest, deep learning génératif) et
           l'<em>analyse statistique appliquée</em>.
