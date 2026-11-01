@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Eude Géro Dekadjevi — Finance Quantitative & Data Science</title>
+<title>Eude Géro Dekadjevi · Data Analyst & Data Scientist</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&family=Fira+Code:wght@300;400&display=swap" rel="stylesheet"/>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -667,12 +667,12 @@ h1            { animation-delay: 0.25s; }
 <!-- HERO -->
 <div class="hero">
   <div class="hero-left">
-    <div class="badge">Disponible · Stage Finance & Data Science · 2026</div>
-    <h1>Finance<br/><em>Quantitative</em><br/>& Data Science</h1>
+    <div class="badge">Disponible · CDI Data Analyst / Data Scientist · Janvier 2027</div>
+    <h1>Data<br/><em>Analyst</em><br/>& Data Science</h1>
     <p class="hero-desc">
-      Étudiant en M2 ISIFAR à l'Université Paris Cité, spécialisé en modélisation stochastique,
-      machine learning et finance des marchés. Enseignant en mathématiques, passionné par
-      les données et les modèles qui expliquent le monde.
+      Data Analyst chez 24S (Groupe LVMH) et étudiant en M2 ISIFAR à l'Université Paris Cité.
+      Je transforme des données massives en décisions : SQL et BigQuery, modèles de machine learning,
+      tableaux de bord et recommandations claires pour les équipes métier. Disponible en CDI dès janvier 2027.
     </p>
     <div class="hero-cta">
       <a href="#projets" class="btn btn-gold">Voir mes projets →</a>
@@ -684,31 +684,31 @@ h1            { animation-delay: 0.25s; }
     <div class="hero-right-top">
       <div class="profile-block">
         <div class="profile-name">Eude Géro Dekadjevi</div>
-        <div class="profile-title">M2 ISIFAR · Université Paris Cité</div>
+        <div class="profile-title">Data Analyst · 24S (LVMH) · M2 ISIFAR</div>
         <div class="profile-tags">
-          <div class="ptag">Modélisation stochastique & taux d'intérêt</div>
+          <div class="ptag">SQL · BigQuery · Google Cloud</div>
           <div class="ptag">Machine Learning & statistiques</div>
-          <div class="ptag">Pricing d'options & volatilité</div>
-          <div class="ptag">Gestion de portefeuille & optimisation d'actifs</div>
+          <div class="ptag">Dashboards Looker Studio · Power BI</div>
+          <div class="ptag">Finance, assurance & gestion des risques</div>
         </div>
       </div>
     </div>
     <div class="hero-right-bottom">
       <div class="stat-box">
-        <span class="stat-val">0.74</span>
-        <span class="stat-label">AUC-ROC<br/>Random Forest</span>
+        <span class="stat-val">81%</span>
+        <span class="stat-label">Commandes paid<br/>bien classées</span>
       </div>
       <div class="stat-box">
-        <span class="stat-val">6</span>
-        <span class="stat-label">Projets<br/>quantitatifs</span>
+        <span class="stat-val">−25%</span>
+        <span class="stat-label">Temps d'exécution<br/>BigQuery</span>
       </div>
       <div class="stat-box">
         <span class="stat-val">M2</span>
         <span class="stat-label">ISIFAR<br/>Paris Cité</span>
       </div>
       <div class="stat-box">
-        <span class="stat-val">12</span>
-        <span class="stat-label">Mois<br/>d'expérience</span>
+        <span class="stat-val">18</span>
+        <span class="stat-label">Mois<br/>d'expérience data</span>
       </div>
     </div>
   </div>
@@ -722,32 +722,53 @@ h1            { animation-delay: 0.25s; }
 
     <div class="projects-list">
 
-      <!-- PROJET 1 -->
+      <!-- EXPERIENCE 24S 1 -->
       <div class="proj">
         <div class="proj-num">01</div>
         <div>
           <div class="proj-badges">
-            <span class="pbadge pb-gold">Gestion d'actifs</span>
-            <span class="pbadge pb-gold">Stratégie CTA</span>
+            <span class="pbadge pb-green">Machine Learning</span>
+            <span class="pbadge pb-gold">24S · Groupe LVMH</span>
           </div>
-          <div class="proj-title">Gestion d'actifs & Data Mining — S&P 500</div>
-          <p class="proj-desc">Stratégie CTA sur les 15 plus grandes actions du S&P 500 (2024-2026). Calcul de moyennes mobiles pour générer des signaux d'achat/vente, simulation de portefeuille, puis réduction dimensionnelle via PCA pour construire des facteurs de risque et comparer les performances. Graphe de corrélations et Minimum Spanning Tree pour identifier les clusters d'actions.</p>
+          <div class="proj-title">Attribution du chiffre d'affaires par canal d'acquisition</div>
+          <p class="proj-desc">Une part du trafic e-commerce arrivait sans canal identifié, ce qui faussait le suivi du chiffre d'affaires par source. J'ai construit un modèle Gradient Boosting qui requalifie ces sessions à partir de leurs caractéristiques, puis réparti le chiffre d'affaires au prorata des probabilités prédites pour fiabiliser le reporting marketing.</p>
           <div class="proj-highlights">
-            <span class="phl">Stratégie CTA — croisement cours / moyenne mobile</span>
-            <span class="phl">PCA — 3 composantes, 56% variance expliquée</span>
-            <span class="phl">Graphe de corrélations & Minimum Spanning Tree</span>
-            <span class="phl">Rendement CTA-PCA > CTA actions individuelles</span>
+            <span class="phl">Gradient Boosting · scikit-learn</span>
+            <span class="phl">Accuracy 64% · 81% des commandes paid bien classées</span>
+            <span class="phl">Plusieurs millions de lignes BigQuery</span>
           </div>
           <div class="proj-stack">
-            <span class="stag">Python</span><span class="stag">pandas</span><span class="stag">scikit-learn</span><span class="stag">networkx</span><span class="stag">PCA</span><span class="stag">NumPy</span>
+            <span class="stag">Python</span><span class="stag">SQL</span><span class="stag">BigQuery</span><span class="stag">scikit-learn</span><span class="stag">pandas</span>
           </div>
         </div>
-        <a href="https://github.com/eude-data/gestion-actifs-sp500" class="proj-link">GitHub →</a>
+        <span class="proj-link">Projet pro</span>
+      </div>
+
+      <!-- EXPERIENCE 24S 2 -->
+      <div class="proj">
+        <div class="proj-num">02</div>
+        <div>
+          <div class="proj-badges">
+            <span class="pbadge pb-blue">Business Intelligence</span>
+            <span class="pbadge pb-gold">24S · Groupe LVMH</span>
+          </div>
+          <div class="proj-title">Reporting Merchandising & datamart</div>
+          <p class="proj-desc">Conception et maintenance d'un reporting Looker Studio pour les équipes Achat et Marketing : performance des pages produits, funnel de conversion, contenus éditoriaux. Recueil des besoins, fiabilisation des requêtes (doublons, grain), conception d'une refonte en datamart à trois couches et formation des utilisateurs.</p>
+          <div class="proj-highlights">
+            <span class="phl">Requêtes BigQuery optimisées · −25% de temps d'exécution</span>
+            <span class="phl">Datamart 3 couches</span>
+            <span class="phl">Analyses comportementales · segmentation clients</span>
+          </div>
+          <div class="proj-stack">
+            <span class="stag">SQL</span><span class="stag">BigQuery</span><span class="stag">Looker Studio</span><span class="stag">Google Cloud</span>
+          </div>
+        </div>
+        <span class="proj-link">Projet pro</span>
       </div>
 
       <!-- PROJET 2 -->
       <div class="proj">
-        <div class="proj-num">02</div>
+        <div class="proj-num">03</div>
         <div>
           <div class="proj-badges">
             <span class="pbadge pb-green">Machine Learning</span>
@@ -768,9 +789,32 @@ h1            { animation-delay: 0.25s; }
         <a href="https://github.com/eude-data/accidents-route-idf" class="proj-link">GitHub →</a>
       </div>
 
+      <!-- PROJET 1 -->
+      <div class="proj">
+        <div class="proj-num">04</div>
+        <div>
+          <div class="proj-badges">
+            <span class="pbadge pb-gold">Gestion d'actifs</span>
+            <span class="pbadge pb-gold">Stratégie CTA</span>
+          </div>
+          <div class="proj-title">Gestion d'actifs & Data Mining — S&P 500</div>
+          <p class="proj-desc">Stratégie CTA sur les 15 plus grandes actions du S&P 500 (2024-2026). Calcul de moyennes mobiles pour générer des signaux d'achat/vente, simulation de portefeuille, puis réduction dimensionnelle via PCA pour construire des facteurs de risque et comparer les performances. Graphe de corrélations et Minimum Spanning Tree pour identifier les clusters d'actions.</p>
+          <div class="proj-highlights">
+            <span class="phl">Stratégie CTA — croisement cours / moyenne mobile</span>
+            <span class="phl">PCA — 3 composantes, 56% variance expliquée</span>
+            <span class="phl">Graphe de corrélations & Minimum Spanning Tree</span>
+            <span class="phl">Rendement CTA-PCA > CTA actions individuelles</span>
+          </div>
+          <div class="proj-stack">
+            <span class="stag">Python</span><span class="stag">pandas</span><span class="stag">scikit-learn</span><span class="stag">networkx</span><span class="stag">PCA</span><span class="stag">NumPy</span>
+          </div>
+        </div>
+        <a href="https://github.com/eude-data/gestion-actifs-sp500" class="proj-link">GitHub →</a>
+      </div>
+
       <!-- PROJET 3 -->
       <div class="proj">
-        <div class="proj-num">03</div>
+        <div class="proj-num">05</div>
         <div>
           <div class="proj-badges">
             <span class="pbadge pb-gold">Factor Investing</span>
@@ -793,7 +837,7 @@ h1            { animation-delay: 0.25s; }
 
       <!-- PROJET 4 — NOUVEAU -->
       <div class="proj">
-        <div class="proj-num">04</div>
+        <div class="proj-num">06</div>
         <div>
           <div class="proj-badges">
             <span class="pbadge pb-gold">Finance Quantitative</span>
@@ -816,7 +860,7 @@ h1            { animation-delay: 0.25s; }
 
       <!-- PROJET 5 — NOUVEAU -->
       <div class="proj">
-        <div class="proj-num">05</div>
+        <div class="proj-num">07</div>
         <div>
           <div class="proj-badges">
             <span class="pbadge pb-blue">Volatilité stochastique</span>
@@ -839,7 +883,7 @@ h1            { animation-delay: 0.25s; }
 
       <!-- PROJET 6 — NOUVEAU -->
       <div class="proj">
-        <div class="proj-num">06</div>
+        <div class="proj-num">08</div>
         <div>
           <div class="proj-badges">
             <span class="pbadge pb-green">Monte Carlo</span>
@@ -871,12 +915,13 @@ h1            { animation-delay: 0.25s; }
     <h2>Compétences <em>techniques</em></h2>
     <div class="skills-grid">
       <div class="sk-panel">
-        <div class="sk-title">Langages</div>
+        <div class="sk-title">Data & BI</div>
         <div class="sk-items">
-          <div class="sk-item">Python</div>
-          <div class="sk-item">R</div>
-          <div class="sk-item">SQL</div>
-          <div class="sk-item">LaTeX</div>
+          <div class="sk-item">SQL · BigQuery</div>
+          <div class="sk-item">Python · R</div>
+          <div class="sk-item">Looker Studio · Power BI</div>
+          <div class="sk-item">Excel · Power Query</div>
+          <div class="sk-item">Google Cloud Platform</div>
         </div>
       </div>
       <div class="sk-panel">
@@ -892,7 +937,8 @@ h1            { animation-delay: 0.25s; }
       <div class="sk-panel">
         <div class="sk-title">ML & Statistiques</div>
         <div class="sk-items">
-          <div class="sk-item">Random Forest · scikit-learn</div>
+          <div class="sk-item">Gradient Boosting · Random Forest</div>
+          <div class="sk-item">Régression logistique · LASSO</div>
           <div class="sk-item">Deep Learning · PyTorch</div>
           <div class="sk-item">ARIMA · VAR · VECM</div>
           <div class="sk-item">Monte Carlo · Réduction de variance</div>
@@ -903,7 +949,7 @@ h1            { animation-delay: 0.25s; }
         <div class="sk-title">Outils</div>
         <div class="sk-items">
           <div class="sk-item">pandas · NumPy · SciPy</div>
-          <div class="sk-item">Manim (animations)</div>
+          <div class="sk-item">Assistants IA (LLM)</div>
           <div class="sk-item">Git · GitHub</div>
           <div class="sk-item">Jupyter · VS Code</div>
           <div class="sk-item">matplotlib · seaborn</div>
@@ -921,26 +967,32 @@ h1            { animation-delay: 0.25s; }
     <div class="parcours-grid">
       <div>
         <p class="about-p">
-          Passionné par l'intersection entre <strong>mathématiques appliquées</strong> et <strong>données financières</strong>,
-          je construis des compétences solides en modélisation stochastique, apprentissage statistique
-          et deep learning dans le cadre de mon <em>M2 ISIFAR</em> à l'Université Paris Cité.
+          Data Analyst chez <strong>24S (Groupe LVMH)</strong>, plateforme e-commerce de luxe, je travaille au sein
+          de l'équipe Marketing/CRM sur des données à grande échelle : modélisation, reporting et analyses
+          comportementales, en parallèle de mon <em>M2 ISIFAR</em> à l'Université Paris Cité.
         </p>
         <p class="about-p">
-          Mes projets couvrent la <strong>finance quantitative</strong> (Black-Scholes, Heston, modèles de taux),
-          la <strong>gestion de portefeuille</strong> (optimisation d'actifs, frontière efficiente),
-          le <strong>machine learning</strong> (Random Forest, deep learning génératif) et
-          l'<em>analyse statistique appliquée</em>.
+          Ma formation en <strong>statistique, finance, assurance et risque</strong> me permet de couvrir
+          l'analyse de données, le <strong>machine learning</strong> et la <strong>modélisation quantitative</strong>
+          (pricing, Monte Carlo, séries temporelles), comme le montrent mes projets.
         </p>
         <p class="about-p">
-          Fort de <strong>12 mois d'expérience</strong> en analyse statistique appliquée
-          (séries temporelles, modèles ARIMA, VAR, VECM), je recherche un stage
-          pour mettre en pratique mes compétences quantitatives dans un environnement
-          professionnel exigeant.
+          Je recherche un <strong>CDI de Data Analyst ou Data Scientist</strong> à partir de
+          <em>janvier 2027</em>, idéalement dans la finance, l'assurance, le retail ou le e-commerce,
+          pour transformer la donnée en décisions concrètes.
         </p>
       </div>
       <div class="timeline">
         <div class="tl">
-          <div class="tl-date">2025<br/>— Présent</div>
+          <div class="tl-date">Juil. 2026<br/>— Déc. 2026</div>
+          <div>
+            <div class="tl-title">Data Analyst (stage de fin d'études)</div>
+            <div class="tl-org">24S · Groupe LVMH · Équipe Marketing/CRM</div>
+            <div class="tl-desc">Modèle d'attribution du chiffre d'affaires par canal, reporting Looker Studio, optimisation BigQuery, analyses comportementales et segmentation clients.</div>
+          </div>
+        </div>
+        <div class="tl">
+          <div class="tl-date">2025<br/>— 2026</div>
           <div>
             <div class="tl-title">M2 ISIFAR</div>
             <div class="tl-org">Université Paris Cité</div>
@@ -948,17 +1000,17 @@ h1            { animation-delay: 0.25s; }
           </div>
         </div>
         <div class="tl">
-          <div class="tl-date">2025<br/>— Présent</div>
+          <div class="tl-date">Févr. 2025<br/>— Juil. 2025</div>
           <div>
-            <div class="tl-title">Gestion de portefeuille & optimisation d'actifs</div>
-            <div class="tl-org">Projet Python</div>
-            <div class="tl-desc">Modélisation et optimisation de portefeuilles financiers en Python — allocation d'actifs, frontière efficiente, mesures de risque.</div>
+            <div class="tl-title">Enseignant contractuel en mathématiques</div>
+            <div class="tl-org">Académie de Versailles</div>
+            <div class="tl-desc">Vulgarisation de concepts abstraits et adaptation du discours à des publics variés.</div>
           </div>
         </div>
         <div class="tl">
           <div class="tl-date">2024<br/>— 2025</div>
           <div>
-            <div class="tl-title">M1 Mathématiques & Applications</div>
+            <div class="tl-title">M1 ISIFAR</div>
             <div class="tl-org">Université Paris Cité</div>
             <div class="tl-desc">Probabilités avancées, analyse fonctionnelle, mathématiques financières.</div>
           </div>
@@ -966,7 +1018,7 @@ h1            { animation-delay: 0.25s; }
         <div class="tl">
           <div class="tl-date">Antérieur</div>
           <div>
-            <div class="tl-title">Stages — Analyse statistique · 12 mois</div>
+            <div class="tl-title">Chargé d'études statistiques · 12 mois</div>
             <div class="tl-org">Industrial Solution · Direction Générale de l'Économie</div>
             <div class="tl-desc">Séries temporelles (ARIMA, VAR, VECM) sur données économiques et industrielles.</div>
           </div>
@@ -983,10 +1035,10 @@ h1            { animation-delay: 0.25s; }
     <h2>Travaillons <em>ensemble</em></h2>
     <div class="contact-wrap">
       <div class="contact-left">
-        <div class="contact-title">À la recherche<br/>d'un <em>stage</em><br/>en Finance quantitative, Data science et ou Analyse des données</div>
+        <div class="contact-title">À la recherche<br/>d'un <em>CDI</em><br/>Data Analyst ou Data Scientist</div>
         <p class="contact-sub">
-          Intéressé par les postes en finance quantitative,
-          gestion des risques, data science et modélisation financière | Paris - France.
+          Disponible dès janvier 2027. Ouvert aux postes en data analyse, data science,
+          pricing, gestion des risques et analytics marketing | Paris et Île-de-France.
         </p>
       </div>
       <div class="contact-right">
@@ -1027,7 +1079,7 @@ h1            { animation-delay: 0.25s; }
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">E.G. Dekadjevi</div>
-  <div class="footer-t">Finance Quantitative & Data Science · Paris, France · 2026</div>
+  <div class="footer-t">Data Analyst & Data Science · Paris, France · 2026</div>
   <div class="footer-t">github.com/eude-data</div>
 </footer>
 
