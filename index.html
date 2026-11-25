@@ -85,7 +85,7 @@ h1 em { background: linear-gradient(100deg, var(--blue) 10%, var(--teal) 90%); -
 .specs { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 0; margin-top: 56px; text-align: left; }
 .spec { padding: 4px 24px; border-left: 1px solid var(--line); }
 .spec:first-child { border-left: 0; padding-left: 0; }
-.spec b { display: block; font-size: clamp(2rem, 4.6vw, 3.2rem); font-weight: 700; letter-spacing: -0.04em; line-height: 1.05; }
+.spec b { display: block; white-space: nowrap; font-size: clamp(2rem, 4.6vw, 3.2rem); font-weight: 700; letter-spacing: -0.04em; line-height: 1.05; }
 .spec span { display: block; color: var(--muted); font-size: .92rem; line-height: 1.35; margin-top: 6px; }
 
 /* SECTIONS */
@@ -319,10 +319,6 @@ footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wr
 
 <div class="hero">
   <div class="wrap">
-    <div class="switch" aria-label="Version du portfolio">
-      <span>Version Data</span>
-      <a href="/finance/">Version Finance</a>
-    </div>
     <p class="eyebrow">Data Analyst et Data Scientist, CDI à partir de janvier 2027</p>
     <h1>Des données brutes aux <em>décisions.</em></h1>
     <p class="sub">
@@ -346,7 +342,7 @@ footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wr
       <div class="spec" data-r><b class="num" data-count="15000" data-suffix="+">15 000+</b><span>accidents de la route analysés en R</span></div>
       <div class="spec" data-r style="--d:.08s"><b class="num" data-count="25" data-prefix="-" data-suffix=" %">-25 %</b><span>de temps d'exécution sur les requêtes BigQuery</span></div>
       <div class="spec" data-r style="--d:.16s"><b class="num" data-count="18">18</b><span>mois d'expérience data</span></div>
-      <div class="spec" data-r style="--d:.24s"><b>Bac+5</b><span>Master ISIFAR, Université Paris Cité</span></div>
+      <div class="spec" data-r style="--d:.24s"><b class="num" data-count="5" data-prefix="Bac+">Bac+5</b><span>Master ISIFAR, Université Paris Cité</span></div>
     </div>
   </div>
 </div>
@@ -640,13 +636,24 @@ footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wr
     $$('[data-r]').forEach(function (el) { if (el.getBoundingClientRect().top > innerHeight) { el.classList.add('pre'); io.observe(el); } else if (el.querySelector('[data-count]')) { count(el.querySelector('[data-count]')); } });
   }
 
-  /* Compteurs : le chiffre final est déjà dans la page, l'animation le rejoue */
+  /* Compteurs : chaque chiffre repart de zéro quand il entre à l'écran */
+  function count() {}
   function fmt(n) { return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
-  function count(el) {
-    if (reduce || el.dataset.done) return; el.dataset.done = 1;
-    var end = +el.dataset.count, pre = el.dataset.prefix || '', suf = el.dataset.suffix || '', t0 = null, final = el.textContent;
-    function step(t) { if (!t0) t0 = t; var k = Math.min(1, (t - t0) / 1300); k = 1 - Math.pow(1 - k, 3); el.textContent = pre + fmt(end * k) + suf; if (k < 1) requestAnimationFrame(step); else el.textContent = final; }
-    requestAnimationFrame(step);
+  var SUP = '⁰¹²³⁴⁵⁶⁷⁸⁹';
+  if ('IntersectionObserver' in window) {
+    var cio = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        var el = e.target;
+        if (!e.isIntersecting) { el._seen = false; return; }
+        if (e.intersectionRatio < 0.6 || el._seen) return;
+        el._seen = true; cancelAnimationFrame(el._raf);
+        var end = +el.dataset.count, pre = el.dataset.prefix || '', suf = el.dataset.suffix || '', sup = el.dataset.sup, t0 = null, dur = end > 100 ? 2200 : 1700;
+        var show = function (v) { v = Math.round(v); el.textContent = pre + (sup ? SUP.charAt(v) : fmt(v)) + suf; };
+        show(0);
+        (function step(t) { if (!t0) t0 = t; var k = Math.min(1, (t - t0 - 250) / dur); if (k < 0) k = 0; var q = 1 - Math.pow(1 - k, 3); show(end * q); if (k < 1) el._raf = requestAnimationFrame(step); else el.textContent = el._final; })(performance.now());
+      });
+    }, { threshold: [0, 0.6] });
+    $$('[data-count]').forEach(function (el) { el._final = el.textContent; cio.observe(el); });
   }
 
   /* Cartes : légère inclinaison au survol (souris uniquement) */
