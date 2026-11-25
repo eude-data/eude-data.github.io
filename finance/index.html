@@ -81,6 +81,12 @@ h1 em { background: linear-gradient(100deg, var(--blue) 10%, var(--teal) 90%); -
 .stage-foot button { color: var(--blue); font-weight: 600; padding: 4px 8px; border-radius: 6px; }
 .stage-foot button:hover { background: var(--blue-soft); }
 
+
+.stage-foot label { display: flex; align-items: center; gap: 10px; font-weight: 600; color: var(--ink); flex: 1 1 220px; }
+.stage-foot label output { color: var(--blue); min-width: 4ch; font-variant-numeric: tabular-nums; }
+.stage-foot label input { flex: 1; min-width: 90px; }
+.stage-cap { font-size: .85rem; color: var(--muted); text-align: left; padding-top: 6px; }
+
 /* CHIFFRES */
 .specs { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 0; margin-top: 56px; text-align: left; }
 .spec { padding: 4px 24px; border-left: 1px solid var(--line); }
@@ -368,9 +374,11 @@ input[type=range] { width: 100%; accent-color: var(--blue); height: 26px; }
     <div class="stage">
       <canvas id="signal" aria-label="Animation : des trajectoires simulées d'un mouvement brownien géométrique partent d'un même point et s'écartent" role="img"></canvas>
       <div class="stage-foot">
-        <span>Trajectoires simulées d'un mouvement brownien géométrique. Passez la souris dessus pour les écarter.</span>
+        <label for="mc-vol">Volatilité <output id="mc-vol-o">30 %</output><input type="range" id="mc-vol" min="10" max="60" step="1" value="30"/></label>
+        <label for="mc-n">Trajectoires <output id="mc-n-o">30</output><input type="range" id="mc-n" min="5" max="60" step="1" value="30"/></label>
         <button type="button" id="replay">Nouveau tirage ↻</button>
       </div>
+      <p class="stage-cap">Chaque trajectoire est un tirage indépendant d'un mouvement brownien géométrique, simulé en direct. Passez la souris dessus pour les écarter.</p>
     </div>
 
     <div class="specs">
@@ -863,40 +871,44 @@ input[type=range] { width: 100%; accent-color: var(--blue); height: 26px; }
     this.textContent = 'Relancer';
   });
 
-  /* Hero : trajectoires d'un mouvement brownien géométrique, vivantes et sensibles à la souris */
-  var cv = $('#signal'), ctx = cv.getContext('2d'), W = 0, H = 0, paths = [], t0 = 0, raf = 0, STEPS = 140, visible = true, mouse = null, force = 0;
-  var cols = ['#2148e0', '#2148e0', '#0b8f7f', '#2148e0', '#b0842a'];
-  var DRAW = 2600, HOLD = 4200, FADE = 700;
-  function simulate() { paths = []; var n = W < 520 ? 16 : 30, dt = 1 / STEPS, v = 0.32; for (var p = 0; p < n; p++) { var a = [0], x = 0; for (var i = 0; i < STEPS; i++) { x += -v * v / 2 * dt + v * Math.sqrt(dt) * gauss(); a.push(x); } paths.push(a); } }
+  /* Hero : chaque trajectoire se trace à son rythme, indépendamment des autres, puis laisse place à un nouveau tirage */
+  var cv = $('#signal'), ctx = cv.getContext('2d'), W = 0, H = 0, paths = [], raf = 0, STEPS = 140, visible = true, mouse = null, force = 0;
+  var cols = ['#2148e0', '#2148e0', '#0b8f7f', '#2148e0', '#b0842a'], volEl = $('#mc-vol'), nEl = $('#mc-n');
+  function draws(p, now, delay) { var v = +volEl.value / 100, dt = 1 / STEPS, x = 0; p.a = [0]; for (var i = 0; i < STEPS; i++) { x += -v * v / 2 * dt + v * Math.sqrt(dt) * gauss(); p.a.push(x); } p.t0 = now + delay; p.dur = 2200 + Math.random() * 2600; p.hold = 700 + Math.random() * 1500; }
+  function setCount(now, fresh) { var n = +nEl.value; if (fresh) paths = []; while (paths.length > n) paths.pop(); while (paths.length < n) { var p = { c: cols[paths.length % cols.length] }; draws(p, now, Math.random() * 1800); paths.push(p); } }
   function size() { var r = cv.getBoundingClientRect(), d = Math.min(2, devicePixelRatio || 1); W = r.width; H = r.height; cv.width = W * d; cv.height = H * d; ctx.setTransform(d, 0, 0, d, 0, 0); }
   function draw(now) {
-    var el = now - t0 - 300, k = reduce ? 1 : Math.max(0, Math.min(1, el / DRAW)), px = 28, py = 22, upto = k * STEPS;
-    var fade = reduce ? 1 : 1 - Math.max(0, Math.min(1, (el - DRAW - HOLD) / FADE));
-    if (!reduce && el > DRAW + HOLD + FADE) { simulate(); t0 = now; raf = requestAnimationFrame(draw); return; }
+    var px = 28, py = 22, FADE = 600;
     force += ((mouse ? 1 : 0) - force) * 0.12;
     ctx.clearRect(0, 0, W, H);
     ctx.strokeStyle = '#e2e2ea'; ctx.lineWidth = 1; for (var g = 0; g <= 4; g++) { var y = py + g * (H - 2 * py) / 4; ctx.beginPath(); ctx.moveTo(px, y); ctx.lineTo(W - px, y); ctx.stroke(); }
-    var Y = function (x) { return H / 2 - x / 0.95 * (H / 2 - py); };
-    var breathe = reduce ? 0 : Math.sin(now / 900) * 1.5;
-    paths.forEach(function (a, p) {
+    var Y = function (x) { return H / 2 - x / 1.1 * (H / 2 - py); };
+    paths.forEach(function (p) {
+      var el = now - p.t0; if (reduce) el = p.dur;
+      if (el > p.dur + p.hold + FADE) { draws(p, now, 0); el = 0; }
+      if (el < 0) return;
+      var k = Math.min(1, el / p.dur), last = Math.floor(k * STEPS), fade = 1 - Math.max(0, Math.min(1, (el - p.dur - p.hold) / FADE)), hx = px, hy = Y(0);
       ctx.beginPath();
-      var last = Math.floor(upto);
       for (var i = 0; i <= last; i++) {
-        var X = px + i / STEPS * (W - 2 * px), yy = Y(a[i]) + breathe * (i / STEPS) * ((p % 2) ? 1 : -1);
+        var X = px + i / STEPS * (W - 2 * px), yy = Y(p.a[i]);
         if (force > 0.01 && mouse) { var dx = X - mouse.x, dy = yy - mouse.y, d = Math.sqrt(dx * dx + dy * dy); if (d < 90) yy += (dy >= 0 ? 1 : -1) * Math.pow(1 - d / 90, 2) * 34 * force; }
-        i ? ctx.lineTo(X, yy) : ctx.moveTo(X, yy);
+        i ? ctx.lineTo(X, yy) : ctx.moveTo(X, yy); hx = X; hy = yy;
       }
-      ctx.strokeStyle = cols[p % cols.length]; ctx.globalAlpha = .5 * fade; ctx.lineWidth = 1.4; ctx.lineJoin = 'round'; ctx.stroke(); ctx.globalAlpha = 1;
+      ctx.strokeStyle = p.c; ctx.globalAlpha = .55 * fade; ctx.lineWidth = 1.4; ctx.lineJoin = 'round'; ctx.stroke();
+      if (k < 1) { ctx.globalAlpha = 1; ctx.fillStyle = p.c; ctx.beginPath(); ctx.arc(hx, hy, 2.6, 0, 6.2832); ctx.fill(); }
+      ctx.globalAlpha = 1;
     });
     ctx.fillStyle = '#0b0b0f'; ctx.beginPath(); ctx.arc(px, Y(0), 5, 0, 6.2832); ctx.fill();
     if (visible && !reduce) raf = requestAnimationFrame(draw);
   }
-  function play() { cancelAnimationFrame(raf); simulate(); t0 = performance.now(); raf = requestAnimationFrame(draw); }
+  function play() { cancelAnimationFrame(raf); setCount(performance.now(), true); raf = requestAnimationFrame(draw); }
   size(); play();
   addEventListener('resize', function () { size(); if (reduce) draw(performance.now()); });
   cv.addEventListener('pointermove', function (e) { var r = cv.getBoundingClientRect(); mouse = { x: e.clientX - r.left, y: e.clientY - r.top }; });
   cv.addEventListener('pointerleave', function () { mouse = null; });
   $('#replay').addEventListener('click', play);
+  volEl.addEventListener('input', function () { $('#mc-vol-o').textContent = volEl.value + ' %'; play(); });
+  nEl.addEventListener('input', function () { $('#mc-n-o').textContent = nEl.value; setCount(performance.now(), false); if (reduce) draw(performance.now()); });
   if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { var was = visible; visible = es[0].isIntersecting; if (visible && !was && !reduce) { cancelAnimationFrame(raf); raf = requestAnimationFrame(draw); } }).observe(cv);
 })();
 </script>
